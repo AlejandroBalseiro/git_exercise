@@ -36,10 +36,9 @@ df_top10 = df_total.nlargest( 10 , "Deaths" )
 top10_countries_3 = df_top10[ "Country_Region" ].tolist()
 top10_deaths = df_top10[ "Deaths" ].tolist()
 
-fig = make_LO_QUE_TE_DE_LA_GANA(
+fig = make_subplots(
 rows = 4 , cols = 6 ,
-specs=[
-[{ "type" : "scattergeo" , "rowspan" : 4 , "colspan" : 3 },
+specs=[[{ "type" : "scattergeo" , "rowspan" : 4 , "colspan" : 3 },
 None , None , { "type" : "indicator" }, { "type" : "indicator" },
 { "type" : "indicator" } ],
 [ None , None , None , { "type" : "bar" ,
@@ -47,9 +46,9 @@ None , None , { "type" : "indicator" }, { "type" : "indicator" },
 [ None , None , None , { "type" : "bar" ,
 "colspan" : 3 }, None , None ],
 [ None , None , None , { "type" : "bar" ,
-"colspan" : 3 }, None , None ],])
-
-message = df_final[ "Country_Region" ] + " " +
+"colspan" : 3 }, None , None ],
+]
+)message = df_final[ "Country_Region" ] + " " +
 df_final[ "Province_State" ] + "<br>"
 message += "Confirmed: " + df_final[ "Confirmed" ].astype(str) +
 "<br>"
@@ -65,8 +64,7 @@ lon = df_final[ "Long_" ],
 lat = df_final[ "Lat" ],
 hovertext = df_final[ "text" ],
 showlegend= False ,
-marker = dict(
-size = 10 ,
+marker = dict(size = 10 ,
 opacity = 0.8 ,
 reversescale = True ,
 autocolorscale = True ,
@@ -93,8 +91,7 @@ title= "Confirmed Cases" ,
 row= 1 , col= 4
 )
 fig.add_trace(
-go.Indicator(
-mode= "number" ,
+go.Indicator(mode= "number" ,
 value=total_recovered,
 title= "Recovered Cases" ,
 ),
@@ -159,5 +156,6 @@ xref= "paper" ,
 yref= "paper" ,
 x= 0.35 ,
 y= 0 )
-])
-fig.write_html( 'templates/quedivertidoesesteejercicio.html' )
+]
+)
+fig.write_html( 'templates/dashboard.html' )
